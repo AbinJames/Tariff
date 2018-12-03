@@ -53,14 +53,12 @@ export class ViewInvoiceComponent implements OnInit {
     //get list of parameters from service
     this.tariffService.getParameters().subscribe(parameterList => {
       this.parameters = parameterList;
-      console.log("Invoices " + JSON.stringify(this.parameters));
+      console.log("Parameters " + JSON.stringify(this.parameters));
     });
   }
   //function to change collapse icon
   changeIcon(id: number): void {
     //change arrow icon on click
-    var status = document.getElementById("button_" + id.toString()).getAttribute("aria-expanded");
-    console.log(status);
     if (status == "true") {
       //show down arrow when rules are not being displayed
       document.getElementById("arrow_" + id.toString()).setAttribute("class", "fa fa-angle-down");
@@ -207,7 +205,7 @@ export class ViewInvoiceComponent implements OnInit {
     this.ruleDetails.isActive = (<HTMLInputElement>document.getElementById("ruleIsActive_" + ruleId)).checked ? 1 : 0;
     //Call service to edit Invoice
     this.tariffService.editRule(ruleId, this.ruleDetails);
-    this.cancelEdittingRule(invoiceId,ruleId,'save');
+    this.cancelEdittingRule(invoiceId, ruleId, 'save');
   }
   //function to add constraints to modal
   showRuleModal(invoiceId: number): void {
@@ -241,8 +239,22 @@ export class ViewInvoiceComponent implements OnInit {
     this.ruleDetails.isActive = newRuleForm.value["isActive"] ? 1 : 0;
     this.ruleDetails.invoiceId = this.newRuleInvoiceId;
     //Service call to add new rule
-    this.tariffService.addRule(this.ruleDetails);
-    location.reload();
+    this.tariffService.addRule(this.ruleDetails).then(response => {
+      //close addrule modal
+      (<HTMLElement>document.getElementById("addnewrule_close")).click();
+      //refresh invoice list
+      this.tariffService.getInvoices().subscribe(invoiceList => {
+        //main invoice list
+        this.invoices = invoiceList;
+        //backup invoice list for populating the main list after filtering
+        this.tempInvoices = invoiceList;
+        //invoice list after filtering based on isActive Filtering
+        this.checkBoxInvoices = invoiceList;
+        console.log("Invoices " + JSON.stringify(this.invoices));
+      });
+    });
+
+
   }
 
   //function to enable filtering
