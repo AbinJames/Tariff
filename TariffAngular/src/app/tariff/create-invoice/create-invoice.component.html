@@ -1,0 +1,97 @@
+<div class="container">
+  <form [formGroup]="invoiceForm" (ngSubmit)="saveInvoice(invoiceForm)">
+    <!-- Form control for invoiceName -->
+    <div class="form-group">
+      <label class="col-lg-12 col-form-label control-label">Name<span style="color: red">*</span></label>
+      <input type="text" class="form-control" formControlName="invoiceName">
+      <!-- Shows error message if name is not entered -->
+      <span class="error" *ngIf="invoiceForm.get('invoiceName').invalid && invoiceForm.get('invoiceName').touched">
+        Name is required
+      </span>
+    </div>
+    <!-- Form control for IsActive-->
+    <!-- true by default -->
+    <div class="form-group">
+      <label class="col-form-label control-label">isActive &nbsp;&nbsp;</label>
+      <input type="checkbox" formControlName="isActive">
+    </div>
+
+    <!-- Form control for ruleList -->
+    <div class="form-group">
+      <table class="form-group table table-striped">
+        <tr>
+          <th>
+            Rules
+          </th>
+          <th colspan="4" class="pull-right">
+            <div class="float-right">
+              <!-- Button to add new rule -->
+              <!-- Will no longer be displayed if showAddRule is true
+                , ie, number of rules = number of parameters -->
+              <a *ngIf="showAddRule" class="btn btn-outline-dark" (click)="addRule()">Add Rule</a>
+            </div>
+          </th>
+        </tr>
+        <tr *ngIf="showRuleTitle">
+          <th>
+            Parameter
+          </th>
+          <th colspan="2">
+            Rule
+          </th>
+          <th>
+            Is Active
+          </th>
+        </tr>
+        <!-- Loop through rule list controls -->
+        <tr formArrayName="ruleList" *ngFor="let prop of invoiceForm.get('ruleList').controls; let i = index">
+          <!-- Form control for parameterId as select-option input for ruleList -->
+          <td [formGroupName]="i">
+            <select required type="text" class="form-control" formControlName="parameterId" (change)="checkChange()">
+              <!-- Loop through parameterList to display option with parameterId as value for each option -->
+              <ng-container *ngFor="let parameter of parameters">
+                <option id="{{parameter.parameterId}}" value="{{parameter.parameterId}}">{{parameter.parameterName}}</option>
+              </ng-container>
+            </select>
+            <!-- Shows error message if parameter is not entered -->
+            <span class="error" *ngIf="prop.get('parameterId').invalid && prop.get('parameterId').touched">
+              Parameter is required
+            </span>
+          </td>
+          <!-- Form control for ruleValue for ruleList -->
+          <td [formGroupName]="i" colspan="2">
+            <input type="text" class="form-control" formControlName="ruleValue">
+            <!-- Shows error message if parameter is not entered -->
+            <span class="error" *ngIf="prop.get('ruleValue').invalid && prop.get('ruleValue').touched">
+              Rule Value is required
+            </span>
+          </td>
+          <!-- Form control for isActive for ruleList -->
+          <!-- true by default -->
+          <td [formGroupName]="i">
+            <input type="checkbox" formControlName="isActive">
+          </td>
+          <td>
+            <div class="float-right">
+              <!-- button to remove corresponding rule -->
+              <a class="btn btn-light" (click)="removeRule(i)"><span class="fa fa-window-close"></span></a>
+            </div>
+          </td>
+        </tr>
+        <!-- displays message if parameterExists is true,ie, same parameter is selected for another rule -->
+        <div class="error" *ngIf="parameterExists">
+          Similar Parameter already selected
+        </div>
+      </table>
+
+    </div>
+    <!-- button to submit data 
+    It is disabled if any validation error is present -->
+    <button type="submit" class="btn btn-success" [disabled]="invoiceForm.invalid">Save</button>
+    <div class="float-right">
+      <a href="view" class="btn btn-outline-dark">Cancel</a>
+    </div>
+  </form>
+</div>
+<br>
+<pre>{{invoiceForm.value | json }}</pre>
