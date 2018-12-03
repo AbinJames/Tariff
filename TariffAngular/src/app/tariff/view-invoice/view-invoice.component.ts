@@ -47,6 +47,7 @@ export class ViewInvoiceComponent implements OnInit {
       this.tempInvoices = invoiceList;
       //invoice list after filtering based on isActive Filtering
       this.checkBoxInvoices = invoiceList;
+      this.textBoxInvoices = invoiceList;
       console.log("Invoices " + JSON.stringify(this.invoices));
     });
 
