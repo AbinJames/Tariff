@@ -16,7 +16,7 @@
       <th>
         <div class="form-group">
           Name
-          <input type="text" id="nameFilter" [(ngModel)]="nameFilter" [hidden]="!filterEnabled" >
+          <input type="text" id="nameFilter" [(ngModel)]="nameFilter" [hidden]="!filterEnabled">
         </div>
       </th>
       <th>
@@ -34,7 +34,7 @@
       <th>Action</th>
     </tr>
     <!-- loop through list of invoices -->
-    <ng-container *ngFor="let invoice of (invoiceList| invoiceFilter:nameFilter:isActiveFilter); let invoiceNo = index">
+    <ng-container *ngFor="let invoice of (invoiceList| invoiceFilter:nameFilter:isActiveFilter:filterEnabled); let invoiceNo = index">
       <tr>
         <td>{{invoiceNo+1}}</td>
         <td><input [class]="editThisInvoice[invoiceNo] ? 'border-1': 'border-0'" id="invoiceName_{{invoiceNo}}" type="text"
@@ -71,8 +71,8 @@
 
       <tr>
         <td colspan="5">
-            <!-- data-parent="#invoicePage" -->
-          <div id="rule_{{invoiceNo}}" class="collapse" >
+          <!-- data-parent="#invoicePage" -->
+          <div id="rule_{{invoiceNo}}" class="collapse">
             <table class="table table-striped">
               <tr>
                 <th>No</th>
@@ -89,19 +89,19 @@
               </tr>
               <!-- loop through list of rules for corresponding invoice -->
               <tr *ngFor="let rule of invoice.ruleView;let ruleNo = index">
-                <td>{{invoiceNo}}{{ruleNo}}</td>
+                <td>{{ruleNo+1}}</td>
                 <td id="ruleParameterName_{{rule.id}}">{{rule.parameterName}}</td>
                 <!-- showing select-option for parameter for editting purposes only -->
                 <!-- <td id="ruleParameterOption_{{rule.id}}" [hidden]="!editThisRuleInInvoice[invoiceNo].rule[ruleNo]">
                   <select required class="form-control" id="ruleParameterId_{{rule.id}}"> -->
-                    <!-- Loop through parameterList to display option with parameterId as value for each option -->
-                    <!-- <ng-container *ngFor="let parameter of parameters">
+                <!-- Loop through parameterList to display option with parameterId as value for each option -->
+                <!-- <ng-container *ngFor="let parameter of parameters">
                       <option id="{{parameter.parameterId}}" value="{{parameter.parameterId}}" selected="{{parameter.parameterName}} == {{rule.parameterName}}">{{parameter.parameterName}}</option>
                     </ng-container>
                   </select>
                 </td> -->
                 <td><input [class]="editThisRuleInInvoice[invoiceNo].rule[ruleNo] ? 'border-1': 'border-0'" id="ruleValue_{{rule.id}}"
-                    name="{{invoiceNo}}+{{ruleNo}}" type="text" value="{{rule.ruleValue}}" [readonly]="!editThisRuleInInvoice[invoiceNo].rule[ruleNo]"></td>
+                    type="text" value="{{rule.ruleValue}}" [readonly]="!editThisRuleInInvoice[invoiceNo].rule[ruleNo]"></td>
                 <!-- show unchecked box if isActive of rule is false or checked box if isActive of rule is true-->
                 <td>
                   <div id="ruleCheckIcons_{{rule.id}}" [hidden]="editThisRuleInInvoice[invoiceNo].rule[ruleNo]">
