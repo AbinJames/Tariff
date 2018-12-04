@@ -8,6 +8,7 @@ import { RouterModule, Routes } from '@angular/router';
 import {CreateInvoiceComponent} from './tariff/create-invoice/create-invoice.component';
 import {ViewInvoiceComponent} from './tariff/view-invoice/view-invoice.component';
 import { TariffModule } from './tariff/tariff.module';
+
 @NgModule({
   declarations: [
     AppComponent

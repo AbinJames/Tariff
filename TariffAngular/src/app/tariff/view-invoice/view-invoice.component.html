@@ -1,13 +1,14 @@
 <div id="invoicePage" class="container-fluid">
   <div class="float-right">
     <!-- navigate to create component on click -->
-    <a class="btn btn-link " href="create"><span class="fa fa-plus">Create New Invoice</span></a>
+    <a class="btn btn-link " href="create"><span class="fa fa-plus">Create New</span></a>
   </div>
   <div class="float-right">
     <!-- navigate to create component on click -->
-    <a class="btn btn-link" id="buttonBeforeFilter" (click)="enableFilter()"><span class="fa fa-filter">Filter</span></a>
-    <a class="btn btn-link" id="buttonAfterFilter" (click)="disableFilter()" hidden><span class="fa fa-filter">Stop
-        Filtering</span></a>
+    <a class="btn btn-link" (click)="toggleFilter()">
+      <span class="fa fa-filter" *ngIf="!filterEnabled">Filter</span>
+      <span class="fa fa-filter" *ngIf="filterEnabled">Stop Filtering</span>
+    </a>
   </div>
   <table class="table table-striped">
     <tr>
@@ -15,17 +16,17 @@
       <th>
         <div class="form-group">
           Name
-          <input type="text" id="nameFilter" hidden (keyup)="nameFiltering()">
+          <input type="text" id="nameFilter" [(ngModel)]="nameFilter" [hidden]="!filterEnabled" >
         </div>
       </th>
       <th>
         <div class="form-group">
           Is Active
           <!-- Option to select between Active and inactive invoices -->
-          <select id="isActiveFilter" hidden (change)="isActiveFiltering()">
-            <option selected value="1">All</option>
-            <option value="2">Active</option>
-            <option value="3">Inactive</option>
+          <select id="isActiveFilter" [hidden]="!filterEnabled" [(ngModel)]="isActiveFilter">
+            <option selected value="-1">All</option>
+            <option value="1">Active</option>
+            <option value="0">Inactive</option>
           </select>
         </div>
       </th>
@@ -33,46 +34,45 @@
       <th>Action</th>
     </tr>
     <!-- loop through list of invoices -->
-    <ng-container *ngFor="let invoice of invoices;let invoiceNo = index">
+    <ng-container *ngFor="let invoice of (invoiceList| invoiceFilter:nameFilter:isActiveFilter); let invoiceNo = index">
       <tr>
         <td>{{invoiceNo+1}}</td>
-        <td><input class="border-0" id="invoiceName_{{invoice.id}}" name="{{invoice.id}}" type="text" value="{{invoice.invoiceName}}"
-            readonly></td>
-        <!-- show unchecked box if isActive of invoice is false or checked box if isActive of invoice is true-->
+        <td><input [class]="editThisInvoice[invoiceNo] ? 'border-1': 'border-0'" id="invoiceName_{{invoiceNo}}" type="text"
+            [value]="invoice.invoiceName">
         <td>
-          <div id="invoiceCheckIcons_{{invoice.id}}">
+          <div id="invoiceCheckIcons_{{invoiceNo}}" [hidden]="editThisInvoice[invoiceNo]">
             <span class="fa fa-check" *ngIf="invoice.isActive"></span>
             <span class="fa fa-times" *ngIf="!invoice.isActive"></span>
           </div>
-          <input id="invoiceIsActive_{{invoice.id}}" type="checkbox" [checked]="invoice.isActive" hidden>
+          <input id="invoiceIsActive_{{invoiceNo}}" type="checkbox" [checked]="invoice.isActive" [hidden]="!editThisInvoice[invoiceNo]">
         </td>
         <td>
           <!-- toggle button for collapsing rules -->
-          <button data-toggle="collapse" attr.data-target="#rule_{{invoice.id}}" (click)="changeIcon(invoice.id)" id="button_{{invoice.id}}">
-            <span class="fa fa-angle-down" id="arrow_{{invoice.id}}"></span>
+          <button data-toggle="collapse" attr.data-target="#rule_{{invoiceNo}}" (click)="ruleDropDown(invoiceNo)">
+            <span [class]="ruleToggleClicked[invoiceNo] ? 'fa fa-angle-up': 'fa fa-angle-down'"></span>
           </button>
         </td>
         <td>
           <!-- button for editting invoice -->
-          <a class="btn btn-link" id="editInvoicebutton_{{invoice.id}}" (click)="setEditInvoice(invoice.id)"><span
-              class="fa fa-edit"></span></a>
+          <a class="btn btn-link" (click)="setEditInvoice(invoiceNo)" [hidden]="editThisInvoice[invoiceNo]"><span class="fa fa-edit"></span></a>
           <!-- button for saving edited invoice -->
           <!-- displayed only after edit button is clicked -->
-          <a class="btn btn-link" id="saveInvoicebutton_{{invoice.id}}" (click)="saveEdittedInvoice(invoice.id)" hidden><span
+          <a class="btn btn-link" (click)="saveEdittedInvoice(invoiceNo,invoice.id)" [hidden]="!editThisInvoice[invoiceNo]"><span
               class="fa fa-save"></span></a>
           <!-- button for cancelling editting invoice -->
           <!-- displayed only after edit button is clicked -->
-          <a class="btn btn-link" id="cancelInvoicebutton_{{invoice.id}}" (click)="cancelEdittingInvoice(invoice.id,'cancel')"
-            hidden><span class="fa fa-times"></span></a>
+          <a class="btn btn-link" (click)="cancelEdittingInvoice(invoiceNo,invoice.id,'cancel')" [hidden]="!editThisInvoice[invoiceNo]"><span
+              class="fa fa-times"></span></a>
           <!-- button for deleting invoice -->
-          <a class="btn btn-link" id="deleteInvoicebutton_{{invoice.id}}" data-toggle="modal" data-target="#confirmModal"
-            (click)="confirmDelete('invoice',invoice.id)"><span class="fa fa-trash"></span></a>
+          <a class="btn btn-link" data-toggle="modal" data-target="#confirmModal" (click)="confirmDelete('invoice',invoice.id)"
+            [hidden]="editThisInvoice[invoiceNo]"><span class="fa fa-trash"></span></a>
         </td>
       </tr>
 
       <tr>
         <td colspan="5">
-          <div id="rule_{{invoice.id}}" class="collapse" data-parent="#invoicePage">
+            <!-- data-parent="#invoicePage" -->
+          <div id="rule_{{invoiceNo}}" class="collapse" >
             <table class="table table-striped">
               <tr>
                 <th>No</th>
@@ -89,41 +89,43 @@
               </tr>
               <!-- loop through list of rules for corresponding invoice -->
               <tr *ngFor="let rule of invoice.ruleView;let ruleNo = index">
-                <td>{{ruleNo+1}}</td>
+                <td>{{invoiceNo}}{{ruleNo}}</td>
                 <td id="ruleParameterName_{{rule.id}}">{{rule.parameterName}}</td>
                 <!-- showing select-option for parameter for editting purposes only -->
-                <td id="ruleParameterOption_{{rule.id}}" hidden>
-                  <select required class="form-control" id="ruleParameterId_{{rule.id}}">
+                <!-- <td id="ruleParameterOption_{{rule.id}}" [hidden]="!editThisRuleInInvoice[invoiceNo].rule[ruleNo]">
+                  <select required class="form-control" id="ruleParameterId_{{rule.id}}"> -->
                     <!-- Loop through parameterList to display option with parameterId as value for each option -->
-                    <ng-container *ngFor="let parameter of parameters">
-                      <option id="{{parameter.parameterId}}" value="{{parameter.parameterId}}" selected="{{parameter.parameterName}} == {{rule.parameterName}}">{{parameter.parameterName}}</option>                     
+                    <!-- <ng-container *ngFor="let parameter of parameters">
+                      <option id="{{parameter.parameterId}}" value="{{parameter.parameterId}}" selected="{{parameter.parameterName}} == {{rule.parameterName}}">{{parameter.parameterName}}</option>
                     </ng-container>
                   </select>
-                </td>
-                <td><input class="border-0" id="ruleValue_{{rule.id}}" name="{{rule.id}}" type="text" value="{{rule.ruleValue}}"
-                    readonly></td>
+                </td> -->
+                <td><input [class]="editThisRuleInInvoice[invoiceNo].rule[ruleNo] ? 'border-1': 'border-0'" id="ruleValue_{{rule.id}}"
+                    name="{{invoiceNo}}+{{ruleNo}}" type="text" value="{{rule.ruleValue}}" [readonly]="!editThisRuleInInvoice[invoiceNo].rule[ruleNo]"></td>
                 <!-- show unchecked box if isActive of rule is false or checked box if isActive of rule is true-->
                 <td>
-                  <div id="ruleCheckIcons_{{rule.id}}">
+                  <div id="ruleCheckIcons_{{rule.id}}" [hidden]="editThisRuleInInvoice[invoiceNo].rule[ruleNo]">
                     <span class="fa fa-check" *ngIf="rule.isActive"></span>
                     <span class="fa fa-times" *ngIf="!rule.isActive"></span>
                   </div>
-                  <input id="ruleIsActive_{{rule.id}}" type="checkbox" [checked]="rule.isActive" hidden>
+                  <input id="ruleIsActive_{{rule.id}}" type="checkbox" [checked]="rule.isActive" [hidden]="!editThisRuleInInvoice[invoiceNo].rule[ruleNo]">
                 </td>
                 <td>
                   <!-- button for editting rule -->
-                  <a class="btn btn-link" id="editRulebutton_{{rule.id}}" (click)="setEditRule(rule.id)"><span class="fa fa-edit"></span></a>
+                  <a class="btn btn-link" id="editRulebutton_{{rule.id}}" (click)="setEditRule(invoiceNo,ruleNo)"
+                    [hidden]="editThisRuleInInvoice[invoiceNo].rule[ruleNo]"><span class="fa fa-edit"></span></a>
                   <!-- button for saving edited rule -->
                   <!-- displayed only after edit button is clicked -->
-                  <a class="btn btn-link" id="saveRulebutton_{{rule.id}}" (click)="saveEdittedRule(invoice.id,rule.id)"
-                    hidden><span class="fa fa-save"></span></a>
+                  <a class="btn btn-link" id="saveRulebutton_{{rule.id}}" (click)="saveEdittedRule(invoice.id,rule.id,invoiceNo,ruleNo)"
+                    [hidden]="!editThisRuleInInvoice[invoiceNo].rule[ruleNo]"><span class="fa fa-save"></span></a>
                   <!-- button for cancelling editting rule -->
                   <!-- displayed only after edit button is clicked -->
-                  <a class="btn btn-link" id="cancelRulebutton_{{rule.id}}" (click)="cancelEdittingRule(invoice.id,rule.id,'cancel')"
-                    hidden><span class="fa fa-times"></span></a>
+                  <a class="btn btn-link" id="cancelRulebutton_{{rule.id}}" (click)="cancelEdittingRule(invoice.id,rule.id,invoiceNo,ruleNo,'cancel')"
+                    [hidden]="!editThisRuleInInvoice[invoiceNo].rule[ruleNo]"><span class="fa fa-times"></span></a>
                   <!-- button for deleting rule -->
                   <a class="btn btn-link" id="deleteRulebutton_{{rule.id}}" data-toggle="modal" data-target="#confirmModal"
-                    (click)="confirmDelete('rule',rule.id)"><span class="fa fa-trash"></span></a>
+                    (click)="confirmDelete('rule',rule.id)" [hidden]="editThisRuleInInvoice[invoiceNo].rule[ruleNo]"><span
+                      class="fa fa-trash"></span></a>
                 </td>
               </tr>
             </table>
@@ -188,7 +190,7 @@
       <!-- Modal content-->
       <div class="modal-content">
         <div class="modal-header">
-            <button type="button" id="deletion_close" class="close deletion_close" data-dismiss="modal">&times;</button>
+          <button type="button" id="deletion_close" class="close deletion_close" data-dismiss="modal">&times;</button>
         </div>
 
         <div class="modal-body">
