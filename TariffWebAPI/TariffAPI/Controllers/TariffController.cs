@@ -106,7 +106,6 @@ namespace TariffAPI.Controllers
             {
                 return BadRequest(ModelState);
             }
-
             dataService.AddRule(ruleDetails);
             return Ok();
         }
@@ -128,7 +127,13 @@ namespace TariffAPI.Controllers
         [HttpDelete("DeleteInvoice/{id}")]
         public IActionResult DeleteInvoiceMaster([FromRoute] int id)
         {
-            return Ok(dataService.DeleteInvoice(id));
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            dataService.DeleteInvoice(id);
+            return Ok();
         }
     }
 }

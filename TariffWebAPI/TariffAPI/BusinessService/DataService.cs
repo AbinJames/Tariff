@@ -225,10 +225,10 @@ namespace TariffAPI.BusinessService
             tariffContext.SaveChanges();
         }
 
-        public async Task<InvoiceMaster> DeleteInvoice(int id)
+        public InvoiceMaster DeleteInvoice(int id)
         {
             //Find RuleDetails entry if present in table
-            var invoiceMaster = await tariffContext.InvoiceMaster.FindAsync(id);
+            var invoiceMaster = tariffContext.InvoiceMaster.Find(id);
             //If found delete first delete all corressponding rules from table
             var rules = tariffContext.RuleDetails.Where(rule => rule.invoiceId == id).ToList();
             foreach (var rule in rules)
@@ -237,7 +237,7 @@ namespace TariffAPI.BusinessService
             }
             //Then delete invoice from table
             tariffContext.InvoiceMaster.Remove(invoiceMaster);
-            await tariffContext.SaveChangesAsync();
+            tariffContext.SaveChanges();
             return invoiceMaster;
         }
     }
