@@ -4,3 +4,7 @@ export class InvoiceMaster
     invoiceName:string;
     isActive:number;
 }
+
+export class EditThisRuleInInvoice{
+    rule:Boolean[]; 
+  }
