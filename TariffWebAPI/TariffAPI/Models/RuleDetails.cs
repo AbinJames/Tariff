@@ -18,6 +18,7 @@ namespace TariffAPI.Models
         [ForeignKey("InvoiceMaster")]
         //Foreignkey connection with InvoiceMaster
         public int invoiceId { get; set; }
+        public InvoiceMaster invoiceMaster { get; set; }
 
         [ForeignKey("ParameterMaster")]
         //Foreignkey Connection with ParameterMaster

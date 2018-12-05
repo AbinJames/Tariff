@@ -87,7 +87,7 @@ namespace TariffAPI.Controllers
 
         // POST: api/Tariff/AddInvoice
         [HttpPost("AddInvoice")]
-        public IActionResult PostInvoiceMaster([FromBody] InvoicePostModel invoicePostModel)
+        public async Task<IActionResult> PostInvoiceMaster([FromBody] InvoicePostModel invoicePostModel)
         {
             if (!ModelState.IsValid)
             {

@@ -5,6 +5,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Migrations\20181126075954_TariffMigr.cs" />
+    <Compile Remove="Migrations\20181126075954_TariffMigr.Designer.cs" />
+    <Compile Remove="Migrations\20181204123146_TariffMigr.cs" />
+    <Compile Remove="Migrations\20181204123146_TariffMigr.Designer.cs" />
+    <Compile Remove="Migrations\20181205042007_TarifMigr.cs" />
+    <Compile Remove="Migrations\20181205042007_TarifMigr.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="wwwroot\" />
   </ItemGroup>
 

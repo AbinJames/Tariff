@@ -9,8 +9,8 @@ using TariffAPI.Models;
 namespace TariffAPI.Migrations
 {
     [DbContext(typeof(TariffContext))]
-    [Migration("20181126075954_TariffMigr")]
-    partial class TariffMigr
+    [Migration("20181205044009_TarifFMigr")]
+    partial class TarifFMigr
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -27,8 +27,7 @@ namespace TariffAPI.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("invoiceName")
-                        .IsRequired()
-                        .HasMaxLength(50);
+                        .IsRequired();
 
                     b.Property<byte>("isActive");
 
@@ -46,8 +45,7 @@ namespace TariffAPI.Migrations
                     b.Property<byte>("isActive");
 
                     b.Property<string>("parameterName")
-                        .IsRequired()
-                        .HasMaxLength(50);
+                        .IsRequired();
 
                     b.HasKey("parameterId");
 
@@ -67,12 +65,21 @@ namespace TariffAPI.Migrations
                     b.Property<int>("parameterId");
 
                     b.Property<string>("ruleValue")
-                        .IsRequired()
-                        .HasMaxLength(50);
+                        .IsRequired();
 
                     b.HasKey("ruleId");
 
+                    b.HasIndex("invoiceId");
+
                     b.ToTable("RuleDetails");
+                });
+
+            modelBuilder.Entity("TariffAPI.Models.RuleDetails", b =>
+                {
+                    b.HasOne("TariffAPI.Models.InvoiceMaster", "invoiceMaster")
+                        .WithMany("ruleDetails")
+                        .HasForeignKey("invoiceId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
         }

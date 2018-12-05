@@ -194,6 +194,7 @@ namespace TariffAPI.BusinessService
                 tariffContext.RuleDetails.Add(ruleDetails);
             }
             tariffContext.SaveChanges();
+
         }
 
 
