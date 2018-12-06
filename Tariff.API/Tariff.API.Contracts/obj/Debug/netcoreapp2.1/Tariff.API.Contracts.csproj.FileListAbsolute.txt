@@ -1,0 +1,9 @@
+D:\Tariff\Tariff.API\Tariff.API.Contracts\bin\Debug\netcoreapp2.1\Tariff.API.Contracts.deps.json
+D:\Tariff\Tariff.API\Tariff.API.Contracts\bin\Debug\netcoreapp2.1\Tariff.API.Contracts.dll
+D:\Tariff\Tariff.API\Tariff.API.Contracts\bin\Debug\netcoreapp2.1\Tariff.API.Contracts.pdb
+D:\Tariff\Tariff.API\Tariff.API.Contracts\obj\Debug\netcoreapp2.1\Tariff.API.Contracts.csprojAssemblyReference.cache
+D:\Tariff\Tariff.API\Tariff.API.Contracts\obj\Debug\netcoreapp2.1\Tariff.API.Contracts.csproj.CoreCompileInputs.cache
+D:\Tariff\Tariff.API\Tariff.API.Contracts\obj\Debug\netcoreapp2.1\Tariff.API.Contracts.AssemblyInfoInputs.cache
+D:\Tariff\Tariff.API\Tariff.API.Contracts\obj\Debug\netcoreapp2.1\Tariff.API.Contracts.AssemblyInfo.cs
+D:\Tariff\Tariff.API\Tariff.API.Contracts\obj\Debug\netcoreapp2.1\Tariff.API.Contracts.dll
+D:\Tariff\Tariff.API\Tariff.API.Contracts\obj\Debug\netcoreapp2.1\Tariff.API.Contracts.pdb

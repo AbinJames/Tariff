@@ -1,10 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using Tariff.API.Contracts.Data;
 
 namespace Tariff.API.Data
 {
-    public class InvoiceMaster
+    public class InvoiceMaster:IInvoiceMaster
     {
         //Model for main InvoiceMaster Table in Database
 

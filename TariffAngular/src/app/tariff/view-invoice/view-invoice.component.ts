@@ -5,7 +5,6 @@ import { InvoiceSet } from 'src/app/models/InvoiceSet.model';
 import { InvoiceMaster, EditThisRuleInInvoice } from 'src/app/models/invoicemaster.model';
 import { RuleDetails } from 'src/app/models/ruledetails.model';
 import { ParameterMaster } from 'src/app/models/parametermaster.model';
-import { RuleSet } from 'src/app/models/ruleset.model';
 import { NgForm } from '@angular/forms';
 
 @Component({
@@ -86,12 +85,12 @@ export class ViewInvoiceComponent implements OnInit {
     //Find invoice with corresponding rule and delete the rule from invoice;
     this.invoiceList.forEach(function (invoiceValue) {
       invoiceValue.ruleView.forEach(function (ruleValue) {
-        if (ruleValue.id == id) {
+        if (ruleValue.ruleId == id) {
           deleteInvoiceId = ruleValue.invoiceId;
         }
       });
     });
-    this.invoiceList.find(item => item.id == deleteInvoiceId).ruleView = this.invoiceList.find(item => item.id == deleteInvoiceId).ruleView.filter(rule => rule.id != id);
+    this.invoiceList.find(item => item.id == deleteInvoiceId).ruleView = this.invoiceList.find(item => item.id == deleteInvoiceId).ruleView.filter(rule => rule.ruleId != id);
 
     (<HTMLElement>document.getElementById("deletion_close")).click();
   }
@@ -151,8 +150,8 @@ export class ViewInvoiceComponent implements OnInit {
       console.log(invoice.ruleView);
       //Since document.getElementById("invoiceName_" + id) doesnot have value property
       //<HTMLInputElement> is added to cast it into HTMLElement Type
-      (<HTMLInputElement>document.getElementById("ruleValue_" + ruleId)).value = invoice.ruleView.find(rule => rule.id == ruleId).ruleValue;
-      (<HTMLInputElement>document.getElementById("ruleIsActive_" + ruleId)).checked = invoice.ruleView.find(rule => rule.id == ruleId).isActive == 0 ? false : true;
+      (<HTMLInputElement>document.getElementById("ruleValue_" + ruleId)).value = invoice.ruleView.find(rule => rule.ruleId == ruleId).ruleValue;
+      (<HTMLInputElement>document.getElementById("ruleIsActive_" + ruleId)).checked = invoice.ruleView.find(rule => rule.ruleId == ruleId).isActive == 0 ? false : true;
     }
   }
 
@@ -161,7 +160,8 @@ export class ViewInvoiceComponent implements OnInit {
     //Set rule model with values from view being editted
     this.ruleDetails.ruleId = ruleId;
     this.ruleDetails.invoiceId = invoiceId;
-    var parameterId = this.parameters.find(item => item.parameterName == document.getElementById("ruleParameterName_" + ruleId).innerHTML).parameterId;
+    console.log((<HTMLInputElement>document.getElementById("ruleParameterId_" + ruleId)).value);
+    var parameterId = Number((<HTMLInputElement>document.getElementById("ruleParameterId_" + ruleId)).value);
     this.ruleDetails.parameterId = parameterId;
     this.ruleDetails.ruleValue = (<HTMLInputElement>document.getElementById("ruleValue_" + ruleId)).value.toString();
     this.ruleDetails.isActive = (<HTMLInputElement>document.getElementById("ruleIsActive_" + ruleId)).checked ? 1 : 0;
@@ -173,16 +173,16 @@ export class ViewInvoiceComponent implements OnInit {
   showRuleModal(invoiceId: number): void {
     console.log("clicked");
     this.newRuleInvoiceId = invoiceId;
-    var parameterNameList = [];
+    var parameterIdList = [];
     var invoice = this.invoiceList.find(item => item.id == invoiceId);
     //get list of parameters from service
     invoice.ruleView.forEach(function (value) {
-      parameterNameList.push(value.parameterName);
+      parameterIdList.push(value.parameterId);
     });
     this.tariffService.getParameters().subscribe(parameterList => {
       var newList = [];
       parameterList.forEach(function (value) {
-        if (!parameterNameList.includes(value.parameterName)) {
+        if (!parameterIdList.includes(value.parameterId)) {
           newList.push(value);
         }
       });

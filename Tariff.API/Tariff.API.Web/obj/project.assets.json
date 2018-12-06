@@ -4334,11 +4334,22 @@
           "lib/netstandard1.3/System.Xml.XPath.XDocument.dll": {}
         }
       },
+      "Tariff.API.Contracts/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v2.1",
+        "compile": {
+          "bin/placeholder/Tariff.API.Contracts.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Tariff.API.Contracts.dll": {}
+        }
+      },
       "Tariff.API.Data/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v2.1",
         "dependencies": {
-          "Microsoft.EntityFrameworkCore": "2.1.1"
+          "Microsoft.EntityFrameworkCore": "2.1.1",
+          "Tariff.API.Contracts": "1.0.0"
         },
         "compile": {
           "bin/placeholder/Tariff.API.Data.dll": {}
@@ -11812,6 +11823,11 @@
         "system.xml.xpath.xdocument.4.3.0.nupkg.sha512",
         "system.xml.xpath.xdocument.nuspec"
       ]
+    },
+    "Tariff.API.Contracts/1.0.0": {
+      "type": "project",
+      "path": "../Tariff.API.Contracts/Tariff.API.Contracts.csproj",
+      "msbuildProject": "../Tariff.API.Contracts/Tariff.API.Contracts.csproj"
     },
     "Tariff.API.Data/1.0.0": {
       "type": "project",

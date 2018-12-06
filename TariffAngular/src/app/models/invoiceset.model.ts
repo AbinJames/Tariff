@@ -1,9 +1,9 @@
-import { RuleSet } from "./ruleset.model";
+import { RuleDetails } from "./ruledetails.model";
 
 export class InvoiceSet
 {
     id:number;
     invoiceName:string;
-    ruleView:RuleSet[];
+    ruleView:RuleDetails[];
     isActive:number;
 }

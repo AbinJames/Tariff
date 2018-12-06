@@ -1,11 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Text;
+using Tariff.API.Contracts.Data;
 
 namespace Tariff.API.Data
 {
-    public class ParameterMaster
+    public class ParameterMaster:IParameterMaster
     {
         //Model for ParameterMaster Table in Database
 

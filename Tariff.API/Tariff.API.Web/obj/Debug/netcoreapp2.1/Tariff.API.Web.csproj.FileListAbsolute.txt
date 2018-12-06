@@ -34,3 +34,5 @@ D:\Tariff\Tariff.API\Tariff.API.Web\obj\Debug\netcoreapp2.1\Tariff.API.Web.Views
 D:\Tariff\Tariff.API\Tariff.API.Web\obj\Debug\netcoreapp2.1\Tariff.API.Web.csproj.CopyComplete
 D:\Tariff\Tariff.API\Tariff.API.Web\obj\Debug\netcoreapp2.1\Tariff.API.Web.dll
 D:\Tariff\Tariff.API\Tariff.API.Web\obj\Debug\netcoreapp2.1\Tariff.API.Web.pdb
+D:\Tariff\Tariff.API\Tariff.API.Web\bin\Debug\netcoreapp2.1\Tariff.API.Contracts.dll
+D:\Tariff\Tariff.API\Tariff.API.Web\bin\Debug\netcoreapp2.1\Tariff.API.Contracts.pdb

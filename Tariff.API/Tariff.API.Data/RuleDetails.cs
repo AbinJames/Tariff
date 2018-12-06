@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Text;
+﻿using System.ComponentModel.DataAnnotations;
+using Tariff.API.Contracts.Data;
 
 namespace Tariff.API.Data
 {
-    public class RuleDetails
+    public class RuleDetails:IRuleDetails
     {
         //Model for RuleDetails Table in Database
 

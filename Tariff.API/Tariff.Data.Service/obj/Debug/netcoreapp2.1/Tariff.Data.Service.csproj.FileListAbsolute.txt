@@ -12,3 +12,5 @@ D:\Tariff\Tariff.API\Tariff.Data.Service\obj\Debug\netcoreapp2.1\Tariff.Data.Ser
 D:\Tariff\Tariff.API\Tariff.Data.Service\obj\Debug\netcoreapp2.1\Tariff.Data.Service.pdb
 D:\Tariff\Tariff.API\Tariff.Data.Service\bin\Debug\netcoreapp2.1\Tariff.Data.Service.runtimeconfig.json
 D:\Tariff\Tariff.API\Tariff.Data.Service\bin\Debug\netcoreapp2.1\Tariff.Data.Service.runtimeconfig.dev.json
+D:\Tariff\Tariff.API\Tariff.Data.Service\bin\Debug\netcoreapp2.1\Tariff.API.Contracts.dll
+D:\Tariff\Tariff.API\Tariff.Data.Service\bin\Debug\netcoreapp2.1\Tariff.API.Contracts.pdb

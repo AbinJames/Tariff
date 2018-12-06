@@ -208,9 +208,18 @@
           "Microsoft.NETCore.Platforms": "2.1.0"
         }
       },
+      "Tariff.API.Contracts/1.0.0": {
+        "runtime": {
+          "Tariff.API.Contracts.dll": {}
+        },
+        "compile": {
+          "Tariff.API.Contracts.dll": {}
+        }
+      },
       "Tariff.API.Data/1.0.0": {
         "dependencies": {
-          "Microsoft.EntityFrameworkCore": "2.1.1"
+          "Microsoft.EntityFrameworkCore": "2.1.1",
+          "Tariff.API.Contracts": "1.0.0"
         },
         "runtime": {
           "Tariff.API.Data.dll": {}
@@ -3235,6 +3244,11 @@
       "sha512": "sha512-st47PosZSHrjECdjeIzZQbzivYBJFv6P2nv4cj2ypdI204DO+vZ7l5raGMiX4eXMJ53RfOIg+/s4DHVZ54Nu2A==",
       "path": "netstandard.library/2.0.3",
       "hashPath": "netstandard.library.2.0.3.nupkg.sha512"
+    },
+    "Tariff.API.Contracts/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
     },
     "Tariff.API.Data/1.0.0": {
       "type": "project",

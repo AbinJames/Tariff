@@ -24,24 +24,10 @@ namespace Tariff.Data.Service
 
         public IEnumerable<InvoiceViewModel> GetInvoiceData()
         {
-            //Get rules from RuleDetails and parameterName from ParameterMaster for corresponding rules
-            //Add result as RuleViewModel object
-            var ruleList = (from r in tariffContext.RuleDetails
-                            join p in tariffContext.ParameterMaster
-                            on r.parameterId equals p.parameterId
-                            select new RuleViewModel
-                            {
-                                id = r.ruleId,
-                                invoiceId = r.invoiceId,
-                                parameterName = p.parameterName,
-                                ruleValue = r.ruleValue,
-                                isActive = r.isActive
-                            })
-                            .ToList();
             //Get invoice from InvoiceMaster and corresponding rules from ruleList
             //Save as InvoiceViewModel object and send to client
             return (from i in tariffContext.InvoiceMaster
-                    join r in ruleList
+                    join r in tariffContext.RuleDetails
                     on i.invoiceId equals r.invoiceId
                     into ruleGroup
                     select new InvoiceViewModel
@@ -57,7 +43,6 @@ namespace Tariff.Data.Service
         //function to edit invoice details
         public void EditInvoice(int id, InvoiceMaster invoiceMaster)
         {
-
             tariffContext.Entry(invoiceMaster).State = EntityState.Modified;
 
             try

@@ -1,7 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Text;
+using Tariff.API.Data;
 
 namespace Tariff.Data.Service.Models
 {
@@ -17,7 +16,7 @@ namespace Tariff.Data.Service.Models
         public string invoiceName { get; set; }
 
         //List of rules for corresponding invoive from InvoiceMaster
-        public IEnumerable<RuleViewModel> ruleView { get; set; }
+        public IEnumerable<RuleDetails> ruleView { get; set; }
 
         public byte isActive { get; set; }
     }

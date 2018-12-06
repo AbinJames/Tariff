@@ -1,13 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using Tariff.API.Data;
 
 namespace Tariff.Data.Service.Context
 {
     public static class TariffSeeder
     {
+        //This function is used to populate the db with initial data
         public static void SeedData(this ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<InvoiceMaster>().HasData(

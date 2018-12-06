@@ -1,13 +1,14 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using Tariff.API.Data;
 
 namespace Tariff.Data.Service.Context
 {
     public class TariffContext : DbContext
     {
+        //Install-Package Microsoft.EntityFrameworkCore.SqlServer
+        //Install-Package Microsoft.EntityFrameworkCore.Tools (for powershell commands)
+        //Install-Package Microsoft.EntityFrameworkCore.Design
+        //( contains migrations engine - and important note this package has to be inside executable project)
         public TariffContext(DbContextOptions<TariffContext> options) : base(options)
         {
 
