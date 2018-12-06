@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using TariffAPI.Models;
-using TariffAPI.BusinessService;
+using Tariff.Data.Services;
+using Tariff.Data;
 
 namespace TariffAPI.Controllers
 {
@@ -16,12 +16,13 @@ namespace TariffAPI.Controllers
     [ApiController]
     public class TariffController : ControllerBase
     {
-        private DataService dataService;
+        private TariffService tariffService;
+        
         public TariffController(TariffContext context)
         {
-            dataService = new DataService(context);
+            tariffService = new tariffService(context);
             //Initializing Database
-            dataService.InitializeDatabase();
+            tariffService.InitializeDatabase();
         }
 
        
@@ -37,14 +38,14 @@ namespace TariffAPI.Controllers
         public IEnumerable<ParameterMaster> GetParameterMaster()
         {
             //return data in ParameterMaster Table
-            return dataService.GetParameters();
+            return tariffService.GetParameters();
         }
 
         //API link api/Tariff/Invoice
         [HttpGet("Invoice")]
         public IEnumerable<InvoiceViewModel> GetInvoice()
         {
-            return dataService.GetInvoiceData();
+            return tariffService.GetInvoiceData();
         }
 
         // PUT: api/Tariff/EditInvoice/5
@@ -61,7 +62,7 @@ namespace TariffAPI.Controllers
                 return BadRequest();
             }
 
-            dataService.EditInvoice(id,invoiceMaster);
+            tariffService.EditInvoice(id,invoiceMaster);
 
             return NoContent();
         }
@@ -80,7 +81,7 @@ namespace TariffAPI.Controllers
                 return BadRequest();
             }
 
-            dataService.EditRule(id, ruleDetails);
+            tariffService.EditRule(id, ruleDetails);
 
             return NoContent();
         }
@@ -94,7 +95,7 @@ namespace TariffAPI.Controllers
                 return BadRequest(ModelState);
             }
 
-            dataService.AddInvoice(invoicePostModel);
+            tariffService.AddInvoice(invoicePostModel);
             return NoContent();
         }
 
@@ -106,7 +107,7 @@ namespace TariffAPI.Controllers
             {
                 return BadRequest(ModelState);
             }
-            dataService.AddRule(ruleDetails);
+            tariffService.AddRule(ruleDetails);
             return Ok();
         }
 
@@ -119,7 +120,7 @@ namespace TariffAPI.Controllers
                 return BadRequest(ModelState);
             }
 
-            dataService.DeleteRule(id);
+            tariffService.DeleteRule(id);
             return Ok();
         }
 
@@ -132,7 +133,7 @@ namespace TariffAPI.Controllers
                 return BadRequest(ModelState);
             }
 
-            dataService.DeleteInvoice(id);
+            tariffService.DeleteInvoice(id);
             return Ok();
         }
     }

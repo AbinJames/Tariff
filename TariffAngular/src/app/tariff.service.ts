@@ -18,7 +18,7 @@ export class TariffService {
   printToConsole(arg) {
     console.log(arg);
   }
-  baseUrl: string = 'https://localhost:44355/api/Tariff/';
+  baseUrl: string = 'https://localhost:44371/api/Tariff/';
 
   getInvoices(): Observable<InvoiceSet[]> {
     //Get Invoice and corresponding rules from API

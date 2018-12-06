@@ -3,7 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.106
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TariffAPI", "TariffAPI\TariffAPI.csproj", "{5B9F4527-8B03-457F-96BB-1BED7A1DC7E3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TariffAPI", "TariffAPI\TariffAPI.csproj", "{5B9F4527-8B03-457F-96BB-1BED7A1DC7E3}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tariff.Data.Services", "Tariff.Data.Services\Tariff.Data.Services.csproj", "{5CF03469-94C1-4BC8-965B-83CE98DCAA51}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tariff.Data", "Tariff.Data\Tariff.Data.csproj", "{68E0C5F0-38A4-47FA-A984-F9A2A8EF0493}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +19,14 @@ Global
 		{5B9F4527-8B03-457F-96BB-1BED7A1DC7E3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5B9F4527-8B03-457F-96BB-1BED7A1DC7E3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5B9F4527-8B03-457F-96BB-1BED7A1DC7E3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5CF03469-94C1-4BC8-965B-83CE98DCAA51}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5CF03469-94C1-4BC8-965B-83CE98DCAA51}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5CF03469-94C1-4BC8-965B-83CE98DCAA51}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5CF03469-94C1-4BC8-965B-83CE98DCAA51}.Release|Any CPU.Build.0 = Release|Any CPU
+		{68E0C5F0-38A4-47FA-A984-F9A2A8EF0493}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{68E0C5F0-38A4-47FA-A984-F9A2A8EF0493}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{68E0C5F0-38A4-47FA-A984-F9A2A8EF0493}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{68E0C5F0-38A4-47FA-A984-F9A2A8EF0493}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
