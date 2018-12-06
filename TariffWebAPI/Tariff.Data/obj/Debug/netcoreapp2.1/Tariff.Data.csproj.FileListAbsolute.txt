@@ -1,9 +1,0 @@
-D:\Tariff\TariffWebAPI\Tariff.Data\bin\Debug\netcoreapp2.1\Tariff.Data.deps.json
-D:\Tariff\TariffWebAPI\Tariff.Data\bin\Debug\netcoreapp2.1\Tariff.Data.dll
-D:\Tariff\TariffWebAPI\Tariff.Data\bin\Debug\netcoreapp2.1\Tariff.Data.pdb
-D:\Tariff\TariffWebAPI\Tariff.Data\obj\Debug\netcoreapp2.1\Tariff.Data.csprojAssemblyReference.cache
-D:\Tariff\TariffWebAPI\Tariff.Data\obj\Debug\netcoreapp2.1\Tariff.Data.csproj.CoreCompileInputs.cache
-D:\Tariff\TariffWebAPI\Tariff.Data\obj\Debug\netcoreapp2.1\Tariff.Data.AssemblyInfoInputs.cache
-D:\Tariff\TariffWebAPI\Tariff.Data\obj\Debug\netcoreapp2.1\Tariff.Data.AssemblyInfo.cs
-D:\Tariff\TariffWebAPI\Tariff.Data\obj\Debug\netcoreapp2.1\Tariff.Data.dll
-D:\Tariff\TariffWebAPI\Tariff.Data\obj\Debug\netcoreapp2.1\Tariff.Data.pdb

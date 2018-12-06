@@ -55,14 +55,14 @@ namespace Tariff.Data.Service
         }
 
         //function to edit invoice details
-        public async void EditInvoice(int id, InvoiceMaster invoiceMaster)
+        public void EditInvoice(int id, InvoiceMaster invoiceMaster)
         {
 
             tariffContext.Entry(invoiceMaster).State = EntityState.Modified;
 
             try
             {
-                await tariffContext.SaveChangesAsync();
+                tariffContext.SaveChanges();
             }
             catch (DbUpdateConcurrencyException)
             {

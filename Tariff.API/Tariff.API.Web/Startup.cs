@@ -33,7 +33,6 @@ namespace Tariff.API.Web
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-
             //CorsPolicy for security
             services.AddCors(options =>
             {

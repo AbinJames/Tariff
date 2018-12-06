@@ -2,6 +2,13 @@ D:\Tariff\Tariff.API\Tariff.API.Web\bin\Debug\netcoreapp2.1\Tariff.API.Web.deps.
 D:\Tariff\Tariff.API\Tariff.API.Web\bin\Debug\netcoreapp2.1\Tariff.API.Web.runtimeconfig.json
 D:\Tariff\Tariff.API\Tariff.API.Web\bin\Debug\netcoreapp2.1\Tariff.API.Web.runtimeconfig.dev.json
 D:\Tariff\Tariff.API\Tariff.API.Web\bin\Debug\netcoreapp2.1\Tariff.API.Web.dll
+D:\Tariff\Tariff.API\Tariff.API.Web\bin\Debug\netcoreapp2.1\Tariff.API.Web.pdb
+D:\Tariff\Tariff.API\Tariff.API.Web\bin\Debug\netcoreapp2.1\Tariff.API.Web.Views.dll
+D:\Tariff\Tariff.API\Tariff.API.Web\bin\Debug\netcoreapp2.1\Tariff.API.Web.Views.pdb
+D:\Tariff\Tariff.API\Tariff.API.Web\bin\Debug\netcoreapp2.1\Tariff.API.Data.dll
+D:\Tariff\Tariff.API\Tariff.API.Web\bin\Debug\netcoreapp2.1\Tariff.Data.Service.dll
+D:\Tariff\Tariff.API\Tariff.API.Web\bin\Debug\netcoreapp2.1\Tariff.Data.Service.pdb
+D:\Tariff\Tariff.API\Tariff.API.Web\bin\Debug\netcoreapp2.1\Tariff.API.Data.pdb
 D:\Tariff\Tariff.API\Tariff.API.Web\obj\Debug\netcoreapp2.1\Tariff.API.Web.csprojAssemblyReference.cache
 D:\Tariff\Tariff.API\Tariff.API.Web\obj\Debug\netcoreapp2.1\Tariff.API.Web.csproj.CoreCompileInputs.cache
 D:\Tariff\Tariff.API\Tariff.API.Web\obj\Debug\netcoreapp2.1\Tariff.API.Web.RazorAssemblyInfo.cache
@@ -23,13 +30,6 @@ D:\Tariff\Tariff.API\Tariff.API.Web\obj\Debug\netcoreapp2.1\Razor\Pages\_ViewImp
 D:\Tariff\Tariff.API\Tariff.API.Web\obj\Debug\netcoreapp2.1\Razor\Pages\_ViewStart.g.cshtml.cs
 D:\Tariff\Tariff.API\Tariff.API.Web\obj\Debug\netcoreapp2.1\Tariff.API.Web.RazorTargetAssemblyInfo.cache
 D:\Tariff\Tariff.API\Tariff.API.Web\obj\Debug\netcoreapp2.1\Tariff.API.Web.RazorTargetAssemblyInfo.cs
-D:\Tariff\Tariff.API\Tariff.API.Web\bin\Debug\netcoreapp2.1\Tariff.API.Web.pdb
-D:\Tariff\Tariff.API\Tariff.API.Web\bin\Debug\netcoreapp2.1\Tariff.API.Web.Views.dll
-D:\Tariff\Tariff.API\Tariff.API.Web\bin\Debug\netcoreapp2.1\Tariff.API.Web.Views.pdb
-D:\Tariff\Tariff.API\Tariff.API.Web\bin\Debug\netcoreapp2.1\Tariff.API.Data.dll
-D:\Tariff\Tariff.API\Tariff.API.Web\bin\Debug\netcoreapp2.1\Tariff.Data.Service.dll
-D:\Tariff\Tariff.API\Tariff.API.Web\bin\Debug\netcoreapp2.1\Tariff.Data.Service.pdb
-D:\Tariff\Tariff.API\Tariff.API.Web\bin\Debug\netcoreapp2.1\Tariff.API.Data.pdb
 D:\Tariff\Tariff.API\Tariff.API.Web\obj\Debug\netcoreapp2.1\Tariff.API.Web.Views.pdb
 D:\Tariff\Tariff.API\Tariff.API.Web\obj\Debug\netcoreapp2.1\Tariff.API.Web.csproj.CopyComplete
 D:\Tariff\Tariff.API\Tariff.API.Web\obj\Debug\netcoreapp2.1\Tariff.API.Web.dll
