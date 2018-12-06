@@ -1,4 +1,4 @@
 # Folders to not include
 TariffAngular/node_modules
 TariffWebAPI\.vs\TariffWebAPI\v15\Server\sqlite3
-Tariff.API/.vs/Tariff.API/v15/Server/sqlite3/db.lock
+Tariff.API/.vs/Tariff.API/v15/Server/sqlite3
