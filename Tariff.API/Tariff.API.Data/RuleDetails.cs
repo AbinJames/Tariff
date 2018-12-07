@@ -13,11 +13,11 @@ namespace Tariff.API.Data
 
         //Foreignkey connection with InvoiceMaster
         public int invoiceId { get; set; }
-        public InvoiceMaster invoiceMaster { get; set; }
+        public virtual InvoiceMaster invoiceMaster { get; set; }
 
         //Foreignkey Connection with ParameterMaster
         public int parameterId { get; set; }
-        public ParameterMaster parameterMaster { get; set; }
+        public virtual ParameterMaster parameterMaster { get; set; }
 
         [Required(ErrorMessage = "Enter value")]
         public string ruleValue { get; set; }

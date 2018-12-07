@@ -57,14 +57,14 @@
           <a class="btn btn-link" (click)="setEditInvoice(invoiceNo)" [hidden]="editThisInvoice[invoiceNo]"><span class="fa fa-edit"></span></a>
           <!-- button for saving edited invoice -->
           <!-- displayed only after edit button is clicked -->
-          <a class="btn btn-link" (click)="saveEdittedInvoice(invoiceNo,invoice.id)" [hidden]="!editThisInvoice[invoiceNo]"><span
+          <a class="btn btn-link" (click)="saveEdittedInvoice(invoiceNo,invoice.invoiceId)" [hidden]="!editThisInvoice[invoiceNo]"><span
               class="fa fa-save"></span></a>
           <!-- button for cancelling editting invoice -->
           <!-- displayed only after edit button is clicked -->
-          <a class="btn btn-link" (click)="cancelEdittingInvoice(invoiceNo,invoice.id,'cancel')" [hidden]="!editThisInvoice[invoiceNo]"><span
+          <a class="btn btn-link" (click)="cancelEdittingInvoice(invoiceNo,invoice.invoiceId,'cancel')" [hidden]="!editThisInvoice[invoiceNo]"><span
               class="fa fa-times"></span></a>
           <!-- button for deleting invoice -->
-          <a class="btn btn-link" data-toggle="modal" data-target="#confirmModal" (click)="confirmDelete('invoice',invoice.id)"
+          <a class="btn btn-link" data-toggle="modal" data-target="#confirmModal" (click)="confirmDelete('invoice',invoice.invoiceId)"
             [hidden]="editThisInvoice[invoiceNo]"><span class="fa fa-trash"></span></a>
         </td>
       </tr>
@@ -81,8 +81,8 @@
                 <th>IsActive</th>
                 <th>
                   <div class="float-right">
-                    <a class="btn btn-outline-dark" *ngIf="invoice.ruleView.length != parameters.length" id="addNewRule_{{invoice.id}}"
-                      data-toggle="modal" (click)="showRuleModal(invoice.id)" data-target="#addNewRule">Add
+                    <a class="btn btn-outline-dark" *ngIf="invoice.ruleView.length != parameters.length" id="addNewRule_{{invoice.invoiceId}}"
+                      data-toggle="modal" (click)="showRuleModal(invoice.invoiceId)" data-target="#addNewRule">Add
                       Rule</a>
                   </div>
                 </th>
@@ -116,11 +116,11 @@
                     [hidden]="editThisRuleInInvoice[invoiceNo].rule[ruleNo]"><span class="fa fa-edit"></span></a>
                   <!-- button for saving edited rule -->
                   <!-- displayed only after edit button is clicked -->
-                  <a class="btn btn-link" id="saveRulebutton_{{rule.ruleId}}" (click)="saveEdittedRule(invoice.id,rule.ruleId,invoiceNo,ruleNo)"
+                  <a class="btn btn-link" id="saveRulebutton_{{rule.ruleId}}" (click)="saveEdittedRule(invoice.invoiceId,rule.ruleId,invoiceNo,ruleNo)"
                     [hidden]="!editThisRuleInInvoice[invoiceNo].rule[ruleNo]"><span class="fa fa-save"></span></a>
                   <!-- button for cancelling editting rule -->
                   <!-- displayed only after edit button is clicked -->
-                  <a class="btn btn-link" id="cancelRulebutton_{{rule.ruleId}}" (click)="cancelEdittingRule(invoice.id,rule.ruleId,invoiceNo,ruleNo,'cancel')"
+                  <a class="btn btn-link" id="cancelRulebutton_{{rule.ruleId}}" (click)="cancelEdittingRule(invoice.invoiceId,rule.ruleId,invoiceNo,ruleNo,'cancel')"
                     [hidden]="!editThisRuleInInvoice[invoiceNo].rule[ruleNo]"><span class="fa fa-times"></span></a>
                   <!-- button for deleting rule -->
                   <a class="btn btn-link" id="deleteRulebutton_{{rule.ruleId}}" data-toggle="modal" data-target="#confirmModal"

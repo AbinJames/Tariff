@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { TariffService } from 'src/app/tariff.service';
-import { InvoiceSet } from 'src/app/models/InvoiceSet.model';
 import { InvoiceMaster, EditThisRuleInInvoice } from 'src/app/models/invoicemaster.model';
 import { RuleDetails } from 'src/app/models/ruledetails.model';
 import { ParameterMaster } from 'src/app/models/parametermaster.model';
@@ -16,7 +15,7 @@ import { NgForm } from '@angular/forms';
 export class ViewInvoiceComponent implements OnInit {
 
   constructor(private http: HttpClient, private tariffService: TariffService) { }
-  invoiceList: InvoiceSet[];
+  invoiceList: InvoiceMaster[];
   ruleToggleClicked = [];
   editThisInvoice = [];
   editThisRuleInInvoice: EditThisRuleInInvoice[] = [];
@@ -24,10 +23,10 @@ export class ViewInvoiceComponent implements OnInit {
   invoice: InvoiceMaster = {
     invoiceId: null,
     invoiceName: "default",
-    isActive: 0
+    isActive: 0,
+    ruleView: null
   };
   filterEnabled: boolean = false;
-  invoiceFilter: InvoiceSet;
   ruleDetails: RuleDetails = {
     ruleId: null,
     invoiceId: null,
@@ -48,6 +47,10 @@ export class ViewInvoiceComponent implements OnInit {
     this.getInvoiceList();
 
     //get list of parameters from service
+    this.getParameterList()
+  }
+
+  getParameterList():void{
     this.tariffService.getParameters().subscribe(parameterList => {
       this.parameters = parameterList;
       console.log("Parameters " + JSON.stringify(this.parameters));
@@ -57,14 +60,17 @@ export class ViewInvoiceComponent implements OnInit {
   getInvoiceList(): void {
     this.tariffService.getInvoices().subscribe(invoiceList => {
       this.invoiceList = invoiceList;
+      console.log(JSON.stringify(this.invoiceList));
+      console.log(this.invoiceList.length);
       //Set defualt status for toggle rule button icon
       for (let invoiceIndex = 0; invoiceIndex < this.invoiceList.length; invoiceIndex++) {
         this.ruleToggleClicked[invoiceIndex] = false;
         this.initObj = {
-          rule:[]
+          rule: []
         };
         this.editThisInvoice[invoiceIndex] = false;
         this.editThisRuleInInvoice.push(this.initObj);
+        console.log(JSON.stringify(this.invoiceList[invoiceIndex].ruleView));
         for (let ruleIndex = 0; ruleIndex < this.invoiceList[invoiceIndex].ruleView.length; ruleIndex++) {
           this.editThisRuleInInvoice[invoiceIndex].rule.push(false)
         }
@@ -90,7 +96,7 @@ export class ViewInvoiceComponent implements OnInit {
         }
       });
     });
-    this.invoiceList.find(item => item.id == deleteInvoiceId).ruleView = this.invoiceList.find(item => item.id == deleteInvoiceId).ruleView.filter(rule => rule.ruleId != id);
+    this.invoiceList.find(item => item.invoiceId == deleteInvoiceId).ruleView = this.invoiceList.find(item => item.invoiceId == deleteInvoiceId).ruleView.filter(rule => rule.ruleId != id);
 
     (<HTMLElement>document.getElementById("deletion_close")).click();
   }
@@ -99,7 +105,7 @@ export class ViewInvoiceComponent implements OnInit {
   deleteInvoice(id: number): void {
     //Call service to delete invoice
     this.tariffService.deleteInvoice(id);
-    this.invoiceList = this.invoiceList.filter(item => item.id != id);
+    this.invoiceList = this.invoiceList.filter(item => item.invoiceId != id);
     (<HTMLElement>document.getElementById("deletion_close")).click();
   }
 
@@ -112,9 +118,10 @@ export class ViewInvoiceComponent implements OnInit {
   //function to cancel editting invoice
   cancelEdittingInvoice(index: number, invoiceId: number, type: string): void {
     this.editThisInvoice[index] = false;
+    (<HTMLInputElement>document.getElementById("invoiceIsActive_" + index)).checked = invoice.isActive == 0 ? false : true;
     if (type == 'cancel') {
       //Reset text of invoiceName in case of any changes
-      var invoice = this.invoiceList.find(item => item.id === invoiceId);
+      var invoice = this.invoiceList.find(item => item.invoiceId === invoiceId);
       //Since document.getElementById("invoiceName_" + id) doesnot have value property
       //<HTMLInputElement> is added to cast it into HTMLElement Type
       //Same goes for document.getElementById("invoiceIsActive_" + id)
@@ -129,6 +136,7 @@ export class ViewInvoiceComponent implements OnInit {
     this.invoice.invoiceId = invoiceId;
     this.invoice.invoiceName = (<HTMLInputElement>document.getElementById("invoiceName_" + index)).value.toString();
     this.invoice.isActive = (<HTMLInputElement>document.getElementById("invoiceIsActive_" + index)).checked ? 1 : 0;
+    this.invoiceList[index].isActive = this.invoice.isActive;
     //Call service to edit Invoice
     this.tariffService.editInvoice(invoiceId, this.invoice);
     this.cancelEdittingInvoice(index, invoiceId, 'save');
@@ -146,7 +154,7 @@ export class ViewInvoiceComponent implements OnInit {
     this.editThisRuleInInvoice[invoiceNo].rule[ruleNo] = false;
     if (type == 'cancel') {
       //Reset text of ruleValue in case of any changes
-      var invoice = this.invoiceList.find(item => item.id == invoiceId);
+      var invoice = this.invoiceList.find(item => item.invoiceId == invoiceId);
       console.log(invoice.ruleView);
       //Since document.getElementById("invoiceName_" + id) doesnot have value property
       //<HTMLInputElement> is added to cast it into HTMLElement Type
@@ -160,12 +168,15 @@ export class ViewInvoiceComponent implements OnInit {
     //Set rule model with values from view being editted
     this.ruleDetails.ruleId = ruleId;
     this.ruleDetails.invoiceId = invoiceId;
-    console.log((<HTMLInputElement>document.getElementById("ruleParameterId_" + ruleId)).value);
+    console.log((<HTMLInputElement>document.getElementById("ruleParameterId_" + ruleId)).value,invoiceId);
     var parameterId = Number((<HTMLInputElement>document.getElementById("ruleParameterId_" + ruleId)).value);
     this.ruleDetails.parameterId = parameterId;
+    
     this.ruleDetails.ruleValue = (<HTMLInputElement>document.getElementById("ruleValue_" + ruleId)).value.toString();
     this.ruleDetails.isActive = (<HTMLInputElement>document.getElementById("ruleIsActive_" + ruleId)).checked ? 1 : 0;
+    this.invoiceList[invoiceNo].ruleView[ruleNo].isActive = this.ruleDetails.isActive;
     //Call service to edit Invoice
+    console.log(JSON.stringify(this.ruleDetails));
     this.tariffService.editRule(ruleId, this.ruleDetails);
     this.cancelEdittingRule(invoiceId, ruleId, invoiceNo, ruleNo, 'save');
   }
@@ -174,7 +185,7 @@ export class ViewInvoiceComponent implements OnInit {
     console.log("clicked");
     this.newRuleInvoiceId = invoiceId;
     var parameterIdList = [];
-    var invoice = this.invoiceList.find(item => item.id == invoiceId);
+    var invoice = this.invoiceList.find(item => item.invoiceId == invoiceId);
     //get list of parameters from service
     invoice.ruleView.forEach(function (value) {
       parameterIdList.push(value.parameterId);

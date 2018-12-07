@@ -5,7 +5,6 @@ import { catchError } from 'rxjs/operators';
 import { throwError } from 'rxjs';
 import { InvoiceMaster } from './models/invoicemaster.model';
 import { ParameterMaster } from './models/parametermaster.model';
-import { InvoiceSet } from './models/invoiceset.model';
 import { Observable } from 'rxjs/internal/Observable';
 import { RuleDetails } from './models/ruledetails.model';
 
@@ -20,9 +19,9 @@ export class TariffService {
   }
   baseUrl: string = 'https://localhost:44357/api/Tariff/';
 
-  getInvoices(): Observable<InvoiceSet[]> {
+  getInvoices(): Observable<InvoiceMaster[]> {
     //Get Invoice and corresponding rules from API
-    return this.http.get<InvoiceSet[]>(this.baseUrl + 'Invoice');
+    return this.http.get<InvoiceMaster[]>(this.baseUrl + 'Invoice');
   }
 
   addInvoice(invoice: InvoiceMaster): void {

@@ -38,7 +38,7 @@ namespace Tariff.API.Web.Controllers
 
         //API link api/Tariff/Invoice
         [HttpGet("Invoice")]
-        public IEnumerable<InvoiceViewModel> GetInvoice()
+        public IEnumerable<InvoiceMaster> GetInvoice()
         {
             return tariffService.GetInvoiceData();
         }
@@ -83,7 +83,7 @@ namespace Tariff.API.Web.Controllers
 
         // POST: api/Tariff/AddInvoice
         [HttpPost("AddInvoice")]
-        public async Task<IActionResult> PostInvoiceMaster([FromBody] InvoicePostModel invoicePostModel)
+        public IActionResult PostInvoiceMaster([FromBody] InvoicePostModel invoicePostModel)
         {
             if (!ModelState.IsValid)
             {

@@ -22,7 +22,7 @@ namespace Tariff.Data.Service
             return tariffContext.ParameterMaster;
         }
 
-        public IEnumerable<InvoiceViewModel> GetInvoiceData()
+        public IEnumerable<InvoiceMaster> GetInvoiceData()
         {
             //Get invoice from InvoiceMaster and corresponding rules from ruleList
             //Save as InvoiceViewModel object and send to client
@@ -30,9 +30,9 @@ namespace Tariff.Data.Service
                     join r in tariffContext.RuleDetails
                     on i.invoiceId equals r.invoiceId
                     into ruleGroup
-                    select new InvoiceViewModel
+                    select new InvoiceMaster
                     {
-                        id = i.invoiceId,
+                        invoiceId = i.invoiceId,
                         invoiceName = i.invoiceName,
                         ruleView = ruleGroup,
                         isActive = i.isActive

@@ -19,6 +19,6 @@ namespace Tariff.API.Data
         [Required]
         public byte isActive { get; set; }
 
-        public ICollection<RuleDetails> ruleDetails { get; set; }
+        public IEnumerable<RuleDetails> ruleView { get; set; }
     }
 }
