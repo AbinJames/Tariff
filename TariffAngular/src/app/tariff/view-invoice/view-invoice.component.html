@@ -16,7 +16,7 @@
       <th>
         <div class="form-group">
           Name
-          <input type="text" id="nameFilter" [(ngModel)]="nameFilter" [hidden]="!filterEnabled" >
+          <input type="text" id="nameFilter" [(ngModel)]="nameFilter" [hidden]="!filterEnabled">
         </div>
       </th>
       <th>
@@ -34,7 +34,7 @@
       <th>Action</th>
     </tr>
     <!-- loop through list of invoices -->
-    <ng-container *ngFor="let invoice of (invoiceList| invoiceFilter:nameFilter:isActiveFilter); let invoiceNo = index">
+    <ng-container *ngFor="let invoice of (invoiceList| invoiceFilter:nameFilter:isActiveFilter:filterEnabled); let invoiceNo = index">
       <tr>
         <td>{{invoiceNo+1}}</td>
         <td><input [class]="editThisInvoice[invoiceNo] ? 'border-1': 'border-0'" id="invoiceName_{{invoiceNo}}" type="text"
@@ -57,22 +57,22 @@
           <a class="btn btn-link" (click)="setEditInvoice(invoiceNo)" [hidden]="editThisInvoice[invoiceNo]"><span class="fa fa-edit"></span></a>
           <!-- button for saving edited invoice -->
           <!-- displayed only after edit button is clicked -->
-          <a class="btn btn-link" (click)="saveEdittedInvoice(invoiceNo,invoice.id)" [hidden]="!editThisInvoice[invoiceNo]"><span
+          <a class="btn btn-link" (click)="saveEdittedInvoice(invoiceNo,invoice.invoiceId)" [hidden]="!editThisInvoice[invoiceNo]"><span
               class="fa fa-save"></span></a>
           <!-- button for cancelling editting invoice -->
           <!-- displayed only after edit button is clicked -->
-          <a class="btn btn-link" (click)="cancelEdittingInvoice(invoiceNo,invoice.id,'cancel')" [hidden]="!editThisInvoice[invoiceNo]"><span
+          <a class="btn btn-link" (click)="cancelEdittingInvoice(invoiceNo,invoice.invoiceId,'cancel')" [hidden]="!editThisInvoice[invoiceNo]"><span
               class="fa fa-times"></span></a>
           <!-- button for deleting invoice -->
-          <a class="btn btn-link" data-toggle="modal" data-target="#confirmModal" (click)="confirmDelete('invoice',invoice.id)"
+          <a class="btn btn-link" data-toggle="modal" data-target="#confirmModal" (click)="confirmDelete('invoice',invoice.invoiceId)"
             [hidden]="editThisInvoice[invoiceNo]"><span class="fa fa-trash"></span></a>
         </td>
       </tr>
 
       <tr>
         <td colspan="5">
-            <!-- data-parent="#invoicePage" -->
-          <div id="rule_{{invoiceNo}}" class="collapse" >
+          <!-- data-parent="#invoicePage" -->
+          <div id="rule_{{invoiceNo}}" class="collapse">
             <table class="table table-striped">
               <tr>
                 <th>No</th>
@@ -81,50 +81,50 @@
                 <th>IsActive</th>
                 <th>
                   <div class="float-right">
-                    <a class="btn btn-outline-dark" *ngIf="invoice.ruleView.length != parameters.length" id="addNewRule_{{invoice.id}}"
-                      data-toggle="modal" (click)="showRuleModal(invoice.id)" data-target="#addNewRule">Add
+                    <a class="btn btn-outline-dark" *ngIf="invoice.ruleView.length != parameters.length" id="addNewRule_{{invoice.invoiceId}}"
+                      data-toggle="modal" (click)="showRuleModal(invoice.invoiceId)" data-target="#addNewRule">Add
                       Rule</a>
                   </div>
                 </th>
               </tr>
               <!-- loop through list of rules for corresponding invoice -->
               <tr *ngFor="let rule of invoice.ruleView;let ruleNo = index">
-                <td>{{invoiceNo}}{{ruleNo}}</td>
-                <td id="ruleParameterName_{{rule.id}}">{{rule.parameterName}}</td>
-                <!-- showing select-option for parameter for editting purposes only -->
-                <!-- <td id="ruleParameterOption_{{rule.id}}" [hidden]="!editThisRuleInInvoice[invoiceNo].rule[ruleNo]">
-                  <select required class="form-control" id="ruleParameterId_{{rule.id}}"> -->
-                    <!-- Loop through parameterList to display option with parameterId as value for each option -->
-                    <!-- <ng-container *ngFor="let parameter of parameters">
-                      <option id="{{parameter.parameterId}}" value="{{parameter.parameterId}}" selected="{{parameter.parameterName}} == {{rule.parameterName}}">{{parameter.parameterName}}</option>
+                <td>{{ruleNo+1}}</td>
+                <!-- <td id="ruleParameterName_{{rule.ruleId}}">{{rule.parameterName}}</td> -->
+                <!-- showing select-option for parameter for viewing purposes only -->
+                <td>
+                  <select required class="form-control border-0" id="ruleParameterId_{{rule.ruleId}}" disabled> 
+                <!-- Loop through parameterList to display option with parameterId as value for each option -->
+                <ng-container *ngFor="let parameter of parameters">
+                      <option id="{{parameter.parameterId}}" value="{{parameter.parameterId}}" [selected]="parameter.parameterId == rule.parameterId">{{parameter.parameterName}}</option>
                     </ng-container>
                   </select>
-                </td> -->
-                <td><input [class]="editThisRuleInInvoice[invoiceNo].rule[ruleNo] ? 'border-1': 'border-0'" id="ruleValue_{{rule.id}}"
-                    name="{{invoiceNo}}+{{ruleNo}}" type="text" value="{{rule.ruleValue}}" [readonly]="!editThisRuleInInvoice[invoiceNo].rule[ruleNo]"></td>
+                </td>
+                <td><input [class]="editThisRuleInInvoice[invoiceNo].rule[ruleNo] ? 'border-1': 'border-0'" id="ruleValue_{{rule.ruleId}}"
+                    type="text" value="{{rule.ruleValue}}" [readonly]="!editThisRuleInInvoice[invoiceNo].rule[ruleNo]"></td>
                 <!-- show unchecked box if isActive of rule is false or checked box if isActive of rule is true-->
                 <td>
-                  <div id="ruleCheckIcons_{{rule.id}}" [hidden]="editThisRuleInInvoice[invoiceNo].rule[ruleNo]">
+                  <div id="ruleCheckIcons_{{rule.ruleId}}" [hidden]="editThisRuleInInvoice[invoiceNo].rule[ruleNo]">
                     <span class="fa fa-check" *ngIf="rule.isActive"></span>
                     <span class="fa fa-times" *ngIf="!rule.isActive"></span>
                   </div>
-                  <input id="ruleIsActive_{{rule.id}}" type="checkbox" [checked]="rule.isActive" [hidden]="!editThisRuleInInvoice[invoiceNo].rule[ruleNo]">
+                  <input id="ruleIsActive_{{rule.ruleId}}" type="checkbox" [checked]="rule.isActive" [hidden]="!editThisRuleInInvoice[invoiceNo].rule[ruleNo]">
                 </td>
                 <td>
                   <!-- button for editting rule -->
-                  <a class="btn btn-link" id="editRulebutton_{{rule.id}}" (click)="setEditRule(invoiceNo,ruleNo)"
+                  <a class="btn btn-link" id="editRulebutton_{{rule.ruleId}}" (click)="setEditRule(invoiceNo,ruleNo)"
                     [hidden]="editThisRuleInInvoice[invoiceNo].rule[ruleNo]"><span class="fa fa-edit"></span></a>
                   <!-- button for saving edited rule -->
                   <!-- displayed only after edit button is clicked -->
-                  <a class="btn btn-link" id="saveRulebutton_{{rule.id}}" (click)="saveEdittedRule(invoice.id,rule.id,invoiceNo,ruleNo)"
+                  <a class="btn btn-link" id="saveRulebutton_{{rule.ruleId}}" (click)="saveEdittedRule(invoice.invoiceId,rule.ruleId,invoiceNo,ruleNo)"
                     [hidden]="!editThisRuleInInvoice[invoiceNo].rule[ruleNo]"><span class="fa fa-save"></span></a>
                   <!-- button for cancelling editting rule -->
                   <!-- displayed only after edit button is clicked -->
-                  <a class="btn btn-link" id="cancelRulebutton_{{rule.id}}" (click)="cancelEdittingRule(invoice.id,rule.id,invoiceNo,ruleNo,'cancel')"
+                  <a class="btn btn-link" id="cancelRulebutton_{{rule.ruleId}}" (click)="cancelEdittingRule(invoice.invoiceId,rule.ruleId,invoiceNo,ruleNo,'cancel')"
                     [hidden]="!editThisRuleInInvoice[invoiceNo].rule[ruleNo]"><span class="fa fa-times"></span></a>
                   <!-- button for deleting rule -->
-                  <a class="btn btn-link" id="deleteRulebutton_{{rule.id}}" data-toggle="modal" data-target="#confirmModal"
-                    (click)="confirmDelete('rule',rule.id)" [hidden]="editThisRuleInInvoice[invoiceNo].rule[ruleNo]"><span
+                  <a class="btn btn-link" id="deleteRulebutton_{{rule.ruleId}}" data-toggle="modal" data-target="#confirmModal"
+                    (click)="confirmDelete('rule',rule.ruleId)" [hidden]="editThisRuleInInvoice[invoiceNo].rule[ruleNo]"><span
                       class="fa fa-trash"></span></a>
                 </td>
               </tr>
