@@ -16,8 +16,6 @@ import { DomSanitizer } from '@angular/platform-browser';
 export class CreateInvoiceComponent implements OnInit {
 
   constructor(private tariffService: TariffService,
-    private http: HttpClient,
-    private sanitizer: DomSanitizer,
     private formBuilder: FormBuilder) { }
 
   invoiceForm: FormGroup;
